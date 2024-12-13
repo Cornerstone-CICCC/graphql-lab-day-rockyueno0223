@@ -10,12 +10,12 @@ export const typeDefs = gql`
 
   type Customer {
     id: ID!,
-    firstName: String,
-    lastName: String,
+    firstname: String,
+    lastname: String,
     email: String,
     products: [Product] # Customer's products
   }
-  
+
   type Order {
     id: ID!,
     product: Product, # Product details
@@ -35,10 +35,10 @@ export const typeDefs = gql`
     editProduct(id: ID, productName: String, productPrice: Float): Product,
     removeProduct(id: ID): Boolean,
 
-    addCustomer(firstName: String, lastName: String, email: String): Customer,
-    editCustomer(id: ID, firstName: String, lastName: String, email: String): Customer,
+    addCustomer(firstname: String, lastname: String, email: String): Customer,
+    editCustomer(id: ID, firstname: String, lastname: String, email: String): Customer,
     removeCustomer(id: ID): Boolean,
-    
+
     addOrder(productId: ID, customerId: ID): Order,
     editOrder(id: ID, productId: ID, customerId: ID): Order,
     removeOrder(id: ID): Boolean
