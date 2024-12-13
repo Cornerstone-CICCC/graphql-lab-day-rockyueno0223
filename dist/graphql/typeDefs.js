@@ -3,35 +3,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.typeDefs = void 0;
 const graphql_tag_1 = require("graphql-tag");
 exports.typeDefs = (0, graphql_tag_1.gql) `
-  type User {
+  type Product {
+    id: ID!,
+    productName: String,
+    productPrice: Float,
+    customers: [Customer] # Product's customers
+  }
+
+  type Customer {
     id: ID!,
     firstname: String,
     lastname: String,
     email: String,
-    todos: [Todo]
+    products: [Product] # Customer's products
   }
 
-  type Todo {
+  type Order {
     id: ID!,
-    text: String,
-    completed: Boolean,
-    user: User
+    product: Product, # Product details
+    customer: Customer # Customer details
   }
 
   type Query {
-    hello: String,
-    users: [User],
-    getUserById(userId: ID): User
-    todos: [Todo]
+    products: [Product],
+    customers: [Customer],
+    orders: [Order],
+    getProductById(id: ID): Product,
+    getCustomerById(id: ID): Customer,
   }
 
   type Mutation {
-    addUser(firstname: String, lastname: String, email: String): User,
-    editUser(id: ID, firstname: String, lastname: String, email: String): User,
-    removeUser(id: ID): User
+    addProduct(productName: String, productPrice: Float): Product,
+    editProduct(id: ID, productName: String, productPrice: Float): Product,
+    removeProduct(id: ID): Boolean,
 
-    addTodo(text: String, userId: ID): Todo
-    editTodo(id: ID, text: String, completed: Boolean): Todo
-    removeTodo(id: ID): Todo
+    addCustomer(firstname: String, lastname: String, email: String): Customer,
+    editCustomer(id: ID, firstname: String, lastname: String, email: String): Customer,
+    removeCustomer(id: ID): Boolean,
+
+    addOrder(productId: ID, customerId: ID): Order,
+    editOrder(id: ID, productId: ID, customerId: ID): Order,
+    removeOrder(id: ID): Boolean
   }
 `;
